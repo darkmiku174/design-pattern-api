@@ -24,4 +24,25 @@ export default class BorrowedTicketController implements Controller {
             .populate("array_books")
         return res.json(bor);
     }
+    public async Add(req: Request, res: Response) {
+        const bor = await BorrowedTicket.create(req.body);
+        if (bor) {
+            res.status(200).json({ message: "Add success" })
+        } else {
+            res.status(404).json({ message: "Error" })
+        }
+       
+        return;
+    }
+
+    public async Delete(req: Request, res: Response) {
+        const bor = await BorrowedTicket.findByIdAndDelete(req.params.id)
+        if (bor) {
+            res.status(200).json({ message: "Delete success" })
+        } else {
+            res.status(404).json({ message: "Borrowed ticket not found" })
+        }
+        
+        return;
+    }
 }

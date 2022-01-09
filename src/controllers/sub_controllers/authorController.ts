@@ -20,4 +20,24 @@ export default class AuthorController implements Controller {
         const author = await Author.findById(req.params.Id)
         return res.json(author);
     }
+
+    public async Add(req: Request, res: Response) {
+        const author = await Author.create(req.body);
+        if (author) {
+            res.status(200).json({ message: "Add success" })
+        } else {
+            res.status(404).json({ message: "Error" })
+        }
+        return;
+    }
+
+    public async Delete(req: Request, res: Response) {
+        const author = await Author.findByIdAndDelete(req.params.id)
+        if (author) {
+            res.status(200).json({ message: "Delete success" })
+        } else {
+            res.status(404).json({ message: "Author not found" })
+        }
+        return;
+    }
 }
